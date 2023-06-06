@@ -15,6 +15,9 @@ env:
 jobs:
   test:
     environment: testing
+    # this is the repo level environment configured in github to differentiate users on testing vs. deployment
+    # jobs without environment will use the general repo level secrets defined at first and still configured.
+    # can delete the repo level secrets and this will still work.
     runs-on: ubuntu-latest
     env:
       MONGODB_CLUSTER_ADDRESS: cluster0.pj1lxuo.mongodb.net
