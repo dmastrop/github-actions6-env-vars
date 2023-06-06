@@ -67,17 +67,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Output information
-      # note that MONGO_DB_NAME will be available but MONGODB_USERNAME will not.
+      # note that MONGO_DB_NAME will be available but env.MONGODB_USERNAME will not.
       # note that PORT is also not avaiable to this job
+      # removed repo level secrets from github
+      # at this point secrets.MONGODB_USERNAME and PASSWORD will both fail
+      # now added an environment level repo secret for USERNAM and PASSWORD called "deploy" environment
+      # this works.
+      # so for the below: present, blank, present, blank, blank, present
         run: |        
           echo "MONGODB_DB_NAME: $MONGODB_DB_NAME"
-          echo "${{ env.PORT }}"
+          echo "PORT: ${{ env.PORT }}"
           echo "MONGODB_USERNAME: ${{ secrets.MONGODB_USERNAME }}"
           echo "MONGODB_USERNAME: $MONGODB_USERNAME"
           echo "MONGODB_USERNAME: ${{ env.MONGODB_USERNAME }}"
           echo "MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}"
-         
-        #test this out without environment specified in deploy job
-        # note the repo level secret has been removed  
-        #this should fail: echo "${{ secrets.MONGODB_USERNAME }}"
           
