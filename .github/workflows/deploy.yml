@@ -56,7 +56,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Output information
-      # note that MONGO_DB_NAME will be available but MONGODB_USERNAME will not
+      # note that MONGO_DB_NAME will be available but MONGODB_USERNAME will not.
         run: |        
           echo "MONGODB_DB_NAME: $MONGODB_DB_NAME"
           echo "MONGODB_USERNAME: $MONGODB_USERNAME"
