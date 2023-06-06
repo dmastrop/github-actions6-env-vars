@@ -60,11 +60,13 @@ jobs:
 # can use a github context env.MONGODB_USERNAME
 # note this type of syntax must be run within a pipe
 # it will not run in a single line!
-# PORT will display for this job but not for the deploy job below         
+# PORT will display for this job but not for the deploy job below
+# The secret has been migrated to "testing" environment on github and should work         
   deploy:
     needs: test
     environment: deploy
     runs-on: ubuntu-latest
+    # NOTE that NO env: variables defined locally to this job. So only env echo below that works is MONGO_DB_NAME
     steps:
       - name: Output information
       # note that MONGO_DB_NAME will be available but env.MONGODB_USERNAME will not.
