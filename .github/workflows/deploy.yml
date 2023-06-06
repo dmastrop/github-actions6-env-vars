@@ -54,8 +54,8 @@ jobs:
         run: |
           echo "MONGODB_CLUSTER_ADDRESS: ${{ env.MONGODB_CLUSTER_ADDRESS }}
           echo "MONGODB_USERNAME: ${{ env.MONGODB_USERNAME }}"
-          echo "MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}
-          echo "${{ env.PORT }}"
+          echo "MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}"
+          echo "PORT: ${{ env.PORT }}"
 # echo the mongodb  username
 # can use a github context env.MONGODB_USERNAME
 # note this type of syntax must be run within a pipe
@@ -63,6 +63,7 @@ jobs:
 # PORT will display for this job but not for the deploy job below         
   deploy:
     needs: test
+    environment: deploy
     runs-on: ubuntu-latest
     steps:
       - name: Output information
@@ -73,6 +74,8 @@ jobs:
           echo "${{ env.PORT }}"
           echo "MONGODB_USERNAME: ${{ secrets.MONGODB_USERNAME }}"
           echo "MONGODB_USERNAME: $MONGODB_USERNAME"
+          echo "MONGODB_USERNAME: ${{ env.MONGODB_USERNAME }}"
+          echo "MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}"
          
         #test this out without environment specified in deploy job
         # note the repo level secret has been removed  
