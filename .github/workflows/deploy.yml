@@ -5,10 +5,26 @@ on:
       - main
       - master
       - dev
+env:
+  MONGODB_DB_NAME: github-actions-demo
+  # use the same name of database server for all the jobs in this file
+  # so put this env at the top before the jobs
+  # this is set at workflow level. It will be available in all jobs unless a job overwrites by using same name
+  # Env variables can be set at job level as well, and even at the step level.
+  # if login credentials differ for deployment production vs. test then that would be a good example to set it at job level
 jobs:
   test:
     environment: testing
     runs-on: ubuntu-latest
+    env:
+      MONGODB_CLUSTER_ADDRESS: cluster0.pj1lxuo.mongodb.net
+      MONGODB_USERNAME: dave
+      MONGODB_PASSWORD: 8JJDseGJYGqTbtsc
+      PORT: 8080
+      # storing passwords in cleartext is not ideal and not done.
+      # these values will be available on the runner now so that when the source code is run
+      # the variables have values that the runner can use to execute the code.
+      # PORT is the application port that the runner will be running.
     steps:
       - name: Get Code
         uses: actions/checkout@v3
@@ -20,15 +36,25 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Run server
-        run: npm start & npx wait-on http://127.0.0.1:XYZ
+        run: npm start & npx wait-on http://127.0.0.1:$PORT
+        # The env variable can be used in workflow file itself. Must use $ when used in run
+        # if running on windows it would be different syntax.
+        # with a python shell by adding shell key to steps the syntax would be diffeent
+        # here ubuntu-latest bash is $ 
       - name: Run tests
         run: npm test
       - name: Output information
-        run: echo "..."
+        #run: echo "..."
+        run: echo "MONGODB_USERNAME: ${{ env.MONGODB_USERNAME }}"
+        # echo the mongodb  username
+        # can use a github context env.MONGODB_USERNAME
   deploy:
     needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Output information
+      # note that MONGO_DB_NAME will be available but MONGODB_USERNAME will not
         run: |        
-          echo "..."
+          echo "MONGODB_DB_NAME: $MONGODB_DB_NAME"
+          echo "MONGODB_USERNAME: $MONGODB_USERNAME"
+          echo "${{ env.PORT }}"
