@@ -68,9 +68,11 @@ jobs:
       # note that PORT is also not avaiable to this job
         run: |        
           echo "MONGODB_DB_NAME: $MONGODB_DB_NAME"
-        #echo "MONGODB_USERNAME: $MONGODB_USERNAME"
           echo "${{ env.PORT }}"
+          echo "MONGODB_USERNAME: ${{ secrets.MONGODB_USERNAME }}"
+          echo "MONGODB_USERNAME: $MONGODB_USERNAME"
+         
         #test this out without environment specified in deploy job
         # note the repo level secret has been removed  
-        #this should fail
-          echo "${{ secrets.MONGODB_USERNAME }}"
+        #this should fail: echo "${{ secrets.MONGODB_USERNAME }}"
+          
