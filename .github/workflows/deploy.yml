@@ -52,7 +52,9 @@ jobs:
       - name: Output information
         #run: echo "..."
         run: |
+          echo "MONGODB_CLUSTER_ADDRESS: ${{ env.MONGODB_CLUSTER_ADDRESS }}
           echo "MONGODB_USERNAME: ${{ env.MONGODB_USERNAME }}"
+          echo "MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}
           echo "${{ env.PORT }}"
 # echo the mongodb  username
 # can use a github context env.MONGODB_USERNAME
