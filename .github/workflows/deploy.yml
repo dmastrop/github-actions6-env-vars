@@ -18,8 +18,11 @@ jobs:
     runs-on: ubuntu-latest
     env:
       MONGODB_CLUSTER_ADDRESS: cluster0.pj1lxuo.mongodb.net
-      MONGODB_USERNAME: dave
-      MONGODB_PASSWORD: 8JJDseGJYGqTbtsc
+      MONGODB_USERNAME: ${{ secrets.MONGODB_USERNAME }}
+      MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}
+      # use the secrets context above; similar to the env context used below
+      # these will be injected via values stored at github
+      # even in log files.
       PORT: 8080
       # storing passwords in cleartext is not ideal and not done.
       # these values will be available on the runner now so that when the source code is run
