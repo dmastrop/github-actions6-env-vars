@@ -45,9 +45,12 @@ jobs:
         run: npm test
       - name: Output information
         #run: echo "..."
-        run: echo "MONGODB_USERNAME: ${{ env.MONGODB_USERNAME }}"
+        run: |
+          echo "MONGODB_USERNAME: ${{ env.MONGODB_USERNAME }}"
         # echo the mongodb  username
         # can use a github context env.MONGODB_USERNAME
+        # note this type of syntax must be run within a pipe
+        # it will not run in a single line!
   deploy:
     needs: test
     runs-on: ubuntu-latest
