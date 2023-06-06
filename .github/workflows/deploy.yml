@@ -47,16 +47,19 @@ jobs:
         #run: echo "..."
         run: |
           echo "MONGODB_USERNAME: ${{ env.MONGODB_USERNAME }}"
-        # echo the mongodb  username
-        # can use a github context env.MONGODB_USERNAME
-        # note this type of syntax must be run within a pipe
-        # it will not run in a single line!
+          echo "${{ env.PORT }}"
+# echo the mongodb  username
+# can use a github context env.MONGODB_USERNAME
+# note this type of syntax must be run within a pipe
+# it will not run in a single line!
+# PORT will display for this job but not for the deploy job below         
   deploy:
     needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Output information
       # note that MONGO_DB_NAME will be available but MONGODB_USERNAME will not.
+      # note that PORT is also not avaiable to this job
         run: |        
           echo "MONGODB_DB_NAME: $MONGODB_DB_NAME"
           echo "MONGODB_USERNAME: $MONGODB_USERNAME"
