@@ -5,6 +5,8 @@ on:
       - main
       - master
       - dev
+      - qa
+      - prod
 env:
   MONGODB_DB_NAME: github-actions-demo
   # use the same name of database server for all the jobs in this file
