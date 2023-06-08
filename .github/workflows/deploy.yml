@@ -67,7 +67,7 @@ jobs:
   deploy:
     needs: test
     environment: deploy
-    # note I have added deploy level environment secrets for MONGODB_USERNAME and MONGODB_PASSWORD
+    # note I have added deploy level github environment secrets for MONGODB_USERNAME and MONGODB_PASSWORD
     # that are not the same as the testing level environment secrets for the same.
     runs-on: ubuntu-latest
     # NOTE that NO env: variables defined locally to this job. So only env echo below that works is MONGO_DB_NAME
