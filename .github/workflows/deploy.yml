@@ -78,6 +78,8 @@ jobs:
       # now added an environment level repo secret for USERNAM and PASSWORD called "deploy" environment
       # this works.
       # so for the below: present, blank, present, blank, blank, present
+      # NOTE that the vaules for teh secrets.MONGODB_USERNAME and secrets.MONGODB_PASSWORD are different from those
+      # for the test job (environment:"testing") above.
       #test change
         run: |        
           echo "MONGODB_DB_NAME: $MONGODB_DB_NAME"
