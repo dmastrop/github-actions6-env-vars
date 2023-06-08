@@ -5,6 +5,7 @@ on:
       - main
       - master
       - dev
+      # dev is not allowed to run the test job via environment branch protection rule
       - prod
       - qa
 env:
